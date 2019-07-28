@@ -1,0 +1,9 @@
+# import Lesson, LessonNote from "./types/lesson.graphql"
+# import User from "./types/user.graphql"
+
+type Query {
+	lessons: [Lesson!]!
+	lessonNotes(lesson: ID!): [LessonNote!]!
+
+	login(idToken: String!): User!
+}

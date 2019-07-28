@@ -1,0 +1,7 @@
+type Image {
+	_id: ID!
+  url: String!
+  width: Int
+  height: Int
+  fileSize: Int
+}

@@ -1,0 +1,9 @@
+type User {
+  _id: ID!
+  email: String!
+  email_verified: Boolean!
+	name: String!
+	familyName: String
+	givenName: String
+  accessToken: String
+}

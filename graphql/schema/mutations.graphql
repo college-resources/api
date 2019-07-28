@@ -1,0 +1,5 @@
+# import Lesson, LessonInput from "./types/lesson.graphql"
+
+type Mutation {
+  addLesson(lesson: LessonInput!): Lesson!
+}
