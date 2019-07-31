@@ -1,25 +1,30 @@
 require('dotenv').config()
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'production'
+}
 
 const mongoose = require('mongoose')
 const express = require('express')
+const bearerToken = require('express-bearer-token')
 const { ApolloServer } = require('apollo-server-express')
 
 const { typeDefs, resolvers } = require('./graphql')
+const auth = require('./middleware/auth')
 
 mongoose.set('useCreateIndex', true)
 
-const server = new ApolloServer({ typeDefs, resolvers, context: ({ req }) => req })
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => req,
+  debug: process.env.NODE_ENV === 'development',
+  playground: process.env.NODE_ENV === 'development'
+})
 
 const app = express()
 
-// TODO: jwt middleware
-app.use((req, res, next) => {
-  req.user = {
-    checkAuthentication: () => { }
-  }
-
-  next()
-})
+app.use(bearerToken())
+app.use(auth)
 
 server.applyMiddleware({ app })
 
@@ -32,7 +37,12 @@ mongoose
   )
   .then(() => {
     app.listen({ port: process.env.SERVER_PORT }, () =>
-      console.log(`Server ready at http://localhost:${process.env.SERVER_PORT}${server.graphqlPath}`)
+      console.log(
+        `Server ready at http://localhost:${process.env.SERVER_PORT}${
+          server.graphqlPath
+        }`,
+        `NODE_ENV=${process.env.NODE_ENV}`
+      )
     )
   })
   .catch(err => {
