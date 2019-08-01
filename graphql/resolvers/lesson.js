@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 const Lesson = require('../../models/lesson')
 const LessonNote = require('../../models/lessonNote')
 const User = require('../../models/user')
@@ -48,6 +49,24 @@ module.exports.addLesson = async (_, args, req) => {
     })
 
     const result = await lesson.save()
+    return transformData(result)
+  } catch (err) {
+    throw err
+  }
+}
+
+module.exports.addLessonNotes = async (_, args, req) => {
+  try {
+    req.user.checkAuthentication()
+
+    const lessonNote = new LessonNote({
+      images: args.lessonNote.images,
+      hypertexts: args.lessonNote.hypertexts,
+      lesson: args.lessonNote.lesson
+      // TODO: creator: req.user.id
+    })
+
+    const result = await lessonNote.save()
     return transformData(result)
   } catch (err) {
     throw err

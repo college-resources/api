@@ -1,4 +1,4 @@
-# import Image from "./image.graphql"
+# import Image, ImageInput from "./image.graphql"
 # import User from "./user.graphql"
 
 type Lesson {
@@ -6,18 +6,24 @@ type Lesson {
   name: String!
   department: String!
   semester: Int!
-	creator: ID!
+  creator: ID!
 }
 
 type LessonNote {
-	images: [Image!]!
-	hypertexts: [String!]!
+  images: [Image!]!
+  hypertexts: [String!]!
   lesson: Lesson!
   creator: User!
 }
 
 input LessonInput {
-	name: String!
+  name: String!
   department: String!
   semester: Int!
+}
+
+input LessonNoteInput {
+  images: [ImageInput!]
+  hypertexts: [String!]
+  lesson: ID!
 }

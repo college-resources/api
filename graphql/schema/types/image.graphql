@@ -5,3 +5,7 @@ type Image {
   height: Int
   fileSize: Int
 }
+
+input ImageInput {
+    url: String!
+}
