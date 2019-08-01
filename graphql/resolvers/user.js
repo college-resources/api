@@ -11,9 +11,9 @@ module.exports.user = async (_, args, req) => {
     let user
 
     if (args.userId) {
-      user = await User.find({ _id: args.userId })
+      user = await User.findOne({ _id: args.userId })
     } else {
-      user = await req.user.userInfo()
+      user = await req.user
     }
 
     return transformData(user)
@@ -30,7 +30,7 @@ module.exports.registerUser = async (_, args, req) => {
 
     const user = new User({
       sub: auth0UserInfo.sub,
-      email:auth0UserInfo.email,
+      email: auth0UserInfo.email,
       emailVerified: auth0UserInfo.email_verified,
       name: args.user.name,
       givenName: args.user.givenName,
