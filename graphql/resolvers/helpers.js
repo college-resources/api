@@ -1,10 +1,16 @@
 const dateToString = date => new Date(date).toISOString()
 
-module.exports.transformData = data => ({
-  ...data._doc,
-  _id: data.id,
-  createdAt: data._doc.createdAt && dateToString(data._doc.createdAt),
-  updatedAt: data._doc.updatedAt && dateToString(data._doc.updatedAt)
-})
+module.exports.transformData = data => {
+  if (data._doc) {
+    data = data._doc
+  }
+
+  return {
+    ...data,
+    _id: data._id.toString(),
+    createdAt: data.createdAt && dateToString(data.createdAt),
+    updatedAt: data.updatedAt && dateToString(data.updatedAt)
+  }
+}
 
 module.exports.dateToString = dateToString
