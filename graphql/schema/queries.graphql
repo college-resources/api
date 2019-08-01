@@ -5,5 +5,5 @@ type Query {
 	lessons: [Lesson!]!
 	lessonNotes(lesson: ID!): [LessonNote!]!
 
-	login(idToken: String!): User!
+	user(userId: ID): User!
 }

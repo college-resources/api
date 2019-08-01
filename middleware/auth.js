@@ -1,7 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express')
 const jwt = require('jsonwebtoken')
 const jwksRsa = require('jwks-rsa')
-// const AuthenticationClient = require('auth0').AuthenticationClient
+
+const User = require('../models/user')
 
 // Dynamically provide a signing key based on the kid in the header and the singing keys provided by the JWKS endpoint.
 const secretProvider = jwksRsa({
@@ -33,16 +34,15 @@ const verifyToken = async (token, dtoken) => jwt.verify(
   }
 )
 
-// TODO: Implement registration, user info
-// const auth0 = new AuthenticationClient({
-//   domain: process.env.AUTH0_DOMAIN
-// })
-
 // Used in resolvers to check if user is authenticated
-// Throws AuthenticationError if user is unauthenticated
-const checkAuthentication = req => () => {
+// Throws AuthenticationError if user is unauthenticated or unregistered
+const checkAuthentication = req => (options = {}) => {
   if (!req.user.isAuthenticated) {
-    throw new AuthenticationError('Unauthorized')
+    throw new AuthenticationError('Unauthenticated')
+  }
+
+  if (!req.user.isRegistered && !options.ignoreRegistration) {
+    throw new AuthenticationError('Unregistered')
   }
 }
 
@@ -59,8 +59,24 @@ const auth = async (req, res, next) => {
 
       // Update user if JWT was valid
       if (decoded.payload && decoded.payload.sub) {
-        user = decoded.payload
+        const auth0user = decoded.payload
         user.isAuthenticated = true
+
+        // Check database for user
+        const dbUser = await User.findOne({ sub: auth0user.sub })
+        if (dbUser) {
+          user.isRegistered = true
+          user = {
+            ...user,
+            ...dbUser._doc,
+            id: dbUser.id
+          }
+        } else {
+          user = {
+            ...user,
+            ...auth0user
+          }
+        }
       }
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {

@@ -9,15 +9,11 @@ const userSchema = new Schema(
       required: true,
       unique: true
     },
-    iss: {
-      type: String,
-      required: true
-    },
     email: {
       type: String,
       required: true
     },
-    email_verified: {
+    emailVerified: {
       type: Boolean,
       required: true
     },
@@ -25,37 +21,33 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    family_name: {
+    givenName: {
       type: String,
-      required: false
+      required: true
     },
-    given_name: {
+    familyName: {
       type: String,
-      required: false
+      required: true
     },
-    middle_name: {
+    middleName: {
       type: String,
       required: false
     },
     nickname: {
       type: String,
-      required: false
-    },
-    preferred_username: {
-      type: String,
-      required: false
+      required: true
     },
     gender: {
       type: String,
-      required: false
+      required: true
     },
     birthDate: {
       type: Date,
-      required: false
+      required: true
     },
     picture: {
       type: String,
-      required: false
+      required: true
     }
   },
   { timestamps: true }

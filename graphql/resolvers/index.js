@@ -1,10 +1,16 @@
-const { lessons, lessonNotes, addLesson } = require('./lesson')
+const { lessons, lessonNotes, addLesson, addLessonNotes } = require('./lesson')
+const { user, registerUser } = require('./user')
 
 module.exports.Query = {
   lessons,
-  lessonNotes
+  lessonNotes,
+
+  user
 }
 
 module.exports.Mutation = {
-  addLesson
+  addLesson,
+  addLessonNotes,
+
+  registerUser
 }

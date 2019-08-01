@@ -9,7 +9,7 @@ module.exports.lessons = async (_, args, req) => {
   try {
     req.user.checkAuthentication()
 
-    const lessons = await Lesson.find()
+    const lessons = await Lesson.find({})
     return lessons.map(lesson => transformData(lesson))
   } catch (err) {
     throw err
@@ -21,17 +21,17 @@ module.exports.lessonNotes = async (_, args, req) => {
     req.user.checkAuthentication()
 
     const lessonNotes = await LessonNote.find({ lesson: args.lesson })
-    return {
-      ...transformData(lessonNotes),
+    return lessonNotes.map(async lessonNote => ({
+      ...transformData(lessonNote),
       lesson: async () => {
-        const lesson = await Lesson.find({ _id: lessonNotes._doc.lesson })
+        const lesson = await Lesson.findOne({ _id: lessonNote._doc.lesson })
         return transformData(lesson)
       },
       creator: async () => {
-        const user = await User.find({ _id: lessonNotes._doc.creator })
+        const user = await User.findOne({ _id: lessonNote._doc.creator })
         return transformData(user)
       }
-    }
+    }))
   } catch (err) {
     throw err
   }
@@ -44,8 +44,8 @@ module.exports.addLesson = async (_, args, req) => {
     const lesson = new Lesson({
       name: args.lesson.name,
       department: args.lesson.department,
-      semester: args.lesson.semester
-      // TODO: creator: req.user.id
+      semester: args.lesson.semester,
+      creator: req.user.id
     })
 
     const result = await lesson.save()
@@ -62,8 +62,8 @@ module.exports.addLessonNotes = async (_, args, req) => {
     const lessonNote = new LessonNote({
       images: args.lessonNote.images,
       hypertexts: args.lessonNote.hypertexts,
-      lesson: args.lessonNote.lesson
-      // TODO: creator: req.user.id
+      lesson: args.lessonNote.lesson,
+      creator: req.user.id
     })
 
     const result = await lessonNote.save()

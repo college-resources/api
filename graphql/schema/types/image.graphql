@@ -1,5 +1,5 @@
 type Image {
-	_id: ID!
+  _id: ID!
   url: String!
   width: Int
   height: Int
@@ -7,5 +7,5 @@ type Image {
 }
 
 input ImageInput {
-    url: String!
+  url: String!
 }
