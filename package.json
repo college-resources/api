@@ -1,7 +1,7 @@
 {
-  "name": "project-ile-api",
+  "name": "college-resources-api",
   "version": "0.1.0",
-  "description": "Project Ile API Server",
+  "description": "College Resources API Server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/project-ile/api.git"
+    "url": "git+https://gitlab.com/college-resources/api.git"
   },
-  "author": "Project Ile",
+  "author": "College Resources",
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/project-ile/api/issues"
+    "url": "https://gitlab.com/college-resources/api/issues"
   },
-  "homepage": "https://github.com/project-ile/api#readme",
+  "homepage": "https://gitlab.com/college-resources/api#readme",
   "dependencies": {
     "apollo-server-express": "^2.8.1",
     "auth0": "^2.18.0",
