@@ -6,7 +6,7 @@ const { transformData } = require('./helpers')
 
 module.exports.lessons = async (_, args, req) => {
   try {
-    req.user.checkAuthentication()
+    await req.user.checkAuthentication()
 
     const lessons = await Lesson.find({})
     return lessons.map(lesson => transformData(lesson))
@@ -17,7 +17,7 @@ module.exports.lessons = async (_, args, req) => {
 
 module.exports.lessonNotes = async (_, args, req) => {
   try {
-    req.user.checkAuthentication()
+    await req.user.checkAuthentication()
 
     const lessonNotes = await LessonNote.find({ lesson: args.lesson })
     return lessonNotes.map(async lessonNote => ({
@@ -38,7 +38,7 @@ module.exports.lessonNotes = async (_, args, req) => {
 
 module.exports.addLesson = async (_, args, req) => {
   try {
-    req.user.checkAuthentication()
+    await req.user.checkAuthentication()
 
     const lesson = new Lesson({
       name: args.lesson.name,
@@ -56,7 +56,7 @@ module.exports.addLesson = async (_, args, req) => {
 
 module.exports.addLessonNotes = async (_, args, req) => {
   try {
-    req.user.checkAuthentication()
+    await req.user.checkAuthentication()
 
     const lessonNote = new LessonNote({
       images: args.lessonNote.images,

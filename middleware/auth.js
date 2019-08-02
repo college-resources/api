@@ -34,15 +34,31 @@ const verifyToken = async (token, dtoken) => jwt.verify(
   }
 )
 
+// Check database for user and update req.user
+const updateReqUser = async (req) => {
+  const dbUser = await User.findOne({ sub: req.user.sub })
+  if (dbUser) {
+    Object.keys(dbUser).forEach(key => {
+      req.user[key] = dbUser[key]
+    })
+
+    req.user.id = dbUser.id
+    req.user.isRegistered = true
+  }
+}
+
 // Used in resolvers to check if user is authenticated
 // Throws AuthenticationError if user is unauthenticated or unregistered
-const checkAuthentication = req => (options = {}) => {
+const checkAuthentication = req => async (options = {}) => {
   if (!req.user.isAuthenticated) {
     throw new AuthenticationError('Unauthenticated')
   }
 
-  if (!req.user.isRegistered && !options.ignoreRegistration) {
-    throw new AuthenticationError('Unregistered')
+  if (!options.ignoreRegistration) {
+    await updateReqUser(req)
+    if (!req.user.isRegistered) {
+      throw new AuthenticationError('Unregistered')
+    }
   }
 }
 
@@ -59,23 +75,9 @@ const auth = async (req, res, next) => {
 
       // Update user if JWT was valid
       if (decoded.payload && decoded.payload.sub) {
-        const auth0user = decoded.payload
-        user.isAuthenticated = true
-
-        // Check database for user
-        const dbUser = await User.findOne({ sub: auth0user.sub })
-        if (dbUser) {
-          user.isRegistered = true
-          user = {
-            ...user,
-            ...dbUser._doc,
-            id: dbUser.id
-          }
-        } else {
-          user = {
-            ...user,
-            ...auth0user
-          }
+        user = {
+          ...decoded.payload,
+          isAuthenticated: true
         }
       }
     } catch (err) {

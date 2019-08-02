@@ -6,14 +6,14 @@ const { transformData, dateToString } = require('./helpers')
 
 module.exports.user = async (_, args, req) => {
   try {
-    req.user.checkAuthentication()
+    await req.user.checkAuthentication()
 
     let user
 
     if (args.userId) {
       user = await User.findOne({ _id: args.userId })
     } else {
-      user = await req.user
+      user = req.user
     }
 
     return transformData(user)
@@ -24,7 +24,7 @@ module.exports.user = async (_, args, req) => {
 
 module.exports.registerUser = async (_, args, req) => {
   try {
-    req.user.checkAuthentication({ ignoreRegistration: true })
+    await req.user.checkAuthentication({ ignoreRegistration: true })
 
     const auth0UserInfo = await authenticationClient.getProfile(req.token)
 
