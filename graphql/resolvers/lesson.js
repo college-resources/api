@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-catch */
 const Lesson = require('../../models/lesson')
 const LessonNote = require('../../models/lessonNote')
 const User = require('../../models/user')

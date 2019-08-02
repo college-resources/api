@@ -5,7 +5,7 @@ if (!process.env.NODE_ENV) {
 
 const mongoose = require('mongoose')
 const express = require('express')
-const  cors = require('cors')
+const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const bearerToken = require('express-bearer-token')
@@ -28,8 +28,8 @@ const app = express()
 app.use(morgan('dev'))
 app.use(helmet())
 app.use(cors({
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(bearerToken())
 app.use(auth)
