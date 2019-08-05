@@ -16,7 +16,10 @@ module.exports.user = async (_, args, req) => {
       user = req.user
     }
 
-    return transformData(user)
+    return {
+      ...transformData(user),
+      birthDate: dateToString(user._doc.birthDate)
+    }
   } catch (err) {
     throw err
   }
