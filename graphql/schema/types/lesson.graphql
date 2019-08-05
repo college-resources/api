@@ -10,6 +10,7 @@ type Lesson {
 }
 
 type LessonNote {
+  _id: ID!
   images: [Image!]!
   hypertexts: [String!]!
   lesson: Lesson!
