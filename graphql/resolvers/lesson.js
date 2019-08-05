@@ -9,7 +9,13 @@ module.exports.lessons = async (_, args, req) => {
     await req.user.checkAuthentication()
 
     const lessons = await Lesson.find({})
-    return lessons.map(lesson => transformData(lesson))
+    return lessons.map(lesson => ({
+      ...transformData(lesson),
+      creator: async () => {
+        const user = await User.findOne({ _id: lesson._doc.creator })
+        return transformData(user)
+      }
+    }))
   } catch (err) {
     throw err
   }

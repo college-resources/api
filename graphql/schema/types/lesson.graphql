@@ -6,7 +6,7 @@ type Lesson {
   name: String!
   department: String!
   semester: Int!
-  creator: ID!
+  creator: User!
 }
 
 type LessonNote {
