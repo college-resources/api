@@ -13,6 +13,7 @@ const { ApolloServer } = require('apollo-server-express')
 
 const { typeDefs, resolvers } = require('./graphql')
 const auth = require('./middleware/auth')
+const loader = require('./middleware/loader')
 
 mongoose.set('useCreateIndex', true)
 
@@ -25,7 +26,9 @@ const server = new ApolloServer({
 })
 
 const app = express()
-app.use(morgan('dev'))
+app.use(morgan('dev', { stream: {
+  write: msg => console.log(msg)
+}}))
 app.use(helmet())
 app.use(cors({
   methods: ['GET', 'POST'],
@@ -33,6 +36,7 @@ app.use(cors({
 }))
 app.use(bearerToken())
 app.use(auth)
+app.use(loader)
 
 server.applyMiddleware({ app })
 

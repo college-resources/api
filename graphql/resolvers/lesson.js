@@ -2,14 +2,16 @@ const Image = require('../../models/image')
 const Lesson = require('../../models/lesson')
 const LessonNote = require('../../models/lessonNote')
 
-const { transformData, transformLesson, getUser, getLesson, getImages } = require('./helpers')
+const { transformLesson, transformLessonNote } = require('./helpers')
 
 module.exports.lessons = async (_, args, req) => {
   try {
     await req.user.checkAuthentication()
 
-    const lessons = await Lesson.find({})
-    return lessons.map(transformLesson)
+    // TODO: Implement search
+    // TODO: Implement loader
+    const lessons = await Lesson.find()
+    return lessons.map(transformLesson.bind(this, req.loaders))
   } catch (err) {
     throw err
   }
@@ -19,13 +21,10 @@ module.exports.lessonNotes = async (_, args, req) => {
   try {
     await req.user.checkAuthentication()
 
+    // TODO: Implement search
+    // TODO: Implement loader
     const lessonNotes = await LessonNote.find({ lesson: args.lesson })
-    return lessonNotes.map(async lessonNote => ({
-      ...transformData(lessonNote),
-      images: getImages(lessonNote._doc.images),
-      lesson: getLesson(lessonNote._doc.lesson),
-      creator: getUser(lessonNote._doc.creator)
-    }))
+    return lessonNotes.map(transformLessonNote.bind(this, req.loaders))
   } catch (err) {
     throw err
   }
@@ -43,7 +42,8 @@ module.exports.addLesson = async (_, args, req) => {
     })
 
     const result = await lesson.save()
-    return transformLesson(result)
+    req.loaders.lesson.prime(result.id, result)
+    return transformLesson(req.loaders, result)
   } catch (err) {
     throw err
   }
@@ -60,6 +60,8 @@ module.exports.addLessonNotes = async (_, args, req) => {
       }))
     )
 
+    images.forEach(image => req.loaders.image.prime(image.id, image))
+
     const lessonNote = new LessonNote({
       images: images.map(img => img._doc._id),
       hypertexts: args.lessonNote.hypertexts,
@@ -68,12 +70,8 @@ module.exports.addLessonNotes = async (_, args, req) => {
     })
 
     const result = await lessonNote.save()
-    return {
-      ...transformData(result),
-      images: getImages(lessonNote._doc.images),
-      lesson: getLesson(lessonNote._doc.lesson),
-      creator: getUser(lessonNote._doc.creator)
-    }
+    req.loaders.lessonNote.prime(result.id, result)
+    return transformLessonNote(req.loaders, result)
   } catch (err) {
     throw err
   }

@@ -1,9 +1,12 @@
+# import User from "./user.graphql"
+
 type Image {
   _id: ID!
   url: String!
   width: Int
   height: Int
   fileSize: Int
+  uploader: User!
 }
 
 input ImageInput {

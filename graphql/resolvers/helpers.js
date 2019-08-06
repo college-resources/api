@@ -11,35 +11,77 @@ exports.transformData = data => {
 
   return {
     ...data,
-    _id: data._id.toString(),
-    createdAt: data.createdAt && exports.dateToString(data.createdAt),
-    updatedAt: data.updatedAt && exports.dateToString(data.updatedAt)
+    createdAt: data.createdAt && this.dateToString(data.createdAt),
+    updatedAt: data.updatedAt && this.dateToString(data.updatedAt)
   }
 }
 
-exports.transformLesson = lesson => ({
-  ...exports.transformData(lesson),
-  creator: exports.getUser(lesson._doc.creator)
+exports.transformImage = async (loaders, image) => {
+  const uploaderId = image._doc.uploader.toString()
+
+  const [uploader] = await Promise.all([
+    loaders.user.load(uploaderId) // uploader
+  ])
+
+  return {
+    ...this.transformData(image),
+    uploader: () => this.transformUser(uploader)
+  }
+}
+
+exports.transformLesson = async (loaders, lesson) => {
+  const creatorId = lesson._doc.creator.toString()
+
+  const [creator] = await Promise.all([
+    loaders.user.load(creatorId) // creator
+  ])
+
+  return {
+    ...this.transformData(lesson),
+    creator: () => this.transformUser(creator)
+  }
+}
+
+exports.transformLessonNote = async (loaders, lessonNote) => {
+  const imagesIds = lessonNote._doc.images.map(img => img.toString())
+  const lessonId = lessonNote._doc.lesson.toString()
+  const creatorId = lessonNote._doc.creator.toString()
+
+  const [images, lesson, creator] = await Promise.all([
+    loaders.images.loadMany(imagesIds), // images
+    loaders.lesson.load(lessonId), // lesson
+    loaders.user.load(creatorId) // creator
+  ])
+
+  return {
+    ...this.transformData(lessonNote),
+    images: () => images.map(this.transformImage.bind(this, loaders)),
+    lesson: () => this.transformLesson(loaders, lesson),
+    creator: () => this.transformUser(creator)
+  }
+}
+
+exports.transformUser = user => {
+  const birthDate = user._doc.birthDate
+
+  return {
+    ...this.transformData(user),
+    birthDate: this.dateToString(birthDate)
+  }
+}
+
+exports.getImages = _ids => Image.find({
+  _id: { $in: _ids }
 })
 
-exports.transformUser = user => ({
-  ...exports.transformData(user),
-  birthDate: exports.dateToString(user._doc.birthDate)
+exports.getLessons = _ids => Lesson.find({
+  _id: { $in: _ids }
 })
 
-exports.getImages = _ids => async () => {
-  const images = await Image.find({
-    _id: { $in: _ids }
-  })
-  return images.map(img => exports.transformData(img))
-}
+exports.getUsers = _ids => User.find({
+  _id: { $in: _ids }
+})
 
-exports.getLesson = _id => async () => {
-  const lesson = await Lesson.findOne({ _id })
-  return exports.transformLesson(lesson)
-}
+exports.getLesson = Lesson.findById
 
-exports.getUser = _id => async () => {
-  const user = await User.findOne({ _id })
-  return exports.transformUser(user)
-}
+exports.getUser = User.findById

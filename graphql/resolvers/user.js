@@ -43,6 +43,7 @@ module.exports.registerUser = async (_, args, req) => {
     })
 
     const result = await user.save()
+    req.loaders.user.prime(result.id, result)
     return transformUser(result)
   } catch (err) {
     throw err
