@@ -2,7 +2,7 @@ const { authenticationClient } = require('../../Auth0')
 
 const User = require('../../models/user')
 
-const { transformData, dateToString } = require('./helpers')
+const { transformUser } = require('./helpers')
 
 module.exports.user = async (_, args, req) => {
   try {
@@ -16,10 +16,7 @@ module.exports.user = async (_, args, req) => {
       user = req.user
     }
 
-    return {
-      ...transformData(user),
-      birthDate: dateToString(user._doc.birthDate)
-    }
+    return transformUser(user)
   } catch (err) {
     throw err
   }
@@ -46,10 +43,7 @@ module.exports.registerUser = async (_, args, req) => {
     })
 
     const result = await user.save()
-    return {
-      ...transformData(result),
-      birthDate: dateToString(result._doc.birthDate)
-    }
+    return transformUser(result)
   } catch (err) {
     throw err
   }
