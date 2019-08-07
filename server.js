@@ -11,6 +11,8 @@ const morgan = require('morgan')
 const bearerToken = require('express-bearer-token')
 const { ApolloServer } = require('apollo-server-express')
 
+const apiRoutes = require('./routes')
+
 const { typeDefs, resolvers } = require('./graphql')
 const auth = require('./middleware/auth')
 const loader = require('./middleware/loader')
@@ -37,6 +39,8 @@ app.use(cors({
 app.use(bearerToken())
 app.use(auth)
 app.use(loader)
+
+app.use('/api', apiRoutes)
 
 server.applyMiddleware({ app })
 
