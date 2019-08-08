@@ -1,5 +1,4 @@
 const express = require('express')
-const { authenticationClient } = require('../Auth0')
 const ApiRequest = require('../models/apiRequest')
 
 const router = express.Router()
@@ -121,7 +120,7 @@ router.post('/get_token', async (req, res) => {
         apiRequest.completed = true
         await apiRequest.save()
 
-        const result = await authenticationClient.oauth.authorizationCodeGrant({
+        const result = await req.auth.authenticationClient.oauth.authorizationCodeGrant({
           audience: process.env.AUTH0_AUDIENCE,
           code: apiRequest._doc.code,
           redirect_uri: CALLBACK_URL

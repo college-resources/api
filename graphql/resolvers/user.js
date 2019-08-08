@@ -1,5 +1,3 @@
-const { authenticationClient } = require('../../Auth0')
-
 const User = require('../../models/user')
 
 const { transformUser } = require('./helpers')
@@ -26,7 +24,7 @@ module.exports.registerUser = async (_, args, req) => {
   try {
     await req.user.checkAuthentication({ ignoreRegistration: true })
 
-    const auth0UserInfo = await authenticationClient.getProfile(req.token)
+    const auth0UserInfo = await req.auth.authenticationClient.getProfile(req.token)
 
     const user = new User({
       sub: auth0UserInfo.sub,

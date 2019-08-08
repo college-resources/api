@@ -59,7 +59,7 @@ mongoose
   .then(() => {
     app.listen({ port: process.env.SERVER_PORT }, () =>
       console.log(
-        `Server ready at http://localhost:${process.env.SERVER_PORT}${
+        `Server ready at ${process.env.SERVER_ADDRESS}:${process.env.SERVER_PORT}${
           server.graphqlPath
         }`,
         `NODE_ENV=${process.env.NODE_ENV}`
