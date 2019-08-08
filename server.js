@@ -1,6 +1,11 @@
 require('dotenv').config()
+
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'production'
+}
+
+if (process.env.PORT) {
+  process.env.SERVER_PORT = process.env.PORT
 }
 
 const mongoose = require('mongoose')

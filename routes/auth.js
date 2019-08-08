@@ -4,8 +4,12 @@ const ApiRequest = require('../models/apiRequest')
 
 const router = express.Router()
 
-const CALLBACK_URL = `${process.env.SERVER_ADDRESS}:${process.env.SERVER_PORT}/${process.env.CALLBACK_PATH}`
-const RETURN_URL = `${process.env.SERVER_ADDRESS}:${process.env.SERVER_PORT}/${process.env.CALLBACK_PATH}`
+const CALLBACK_URL = process.env.PORT
+  ? `${process.env.SERVER_ADDRESS}/${process.env.CALLBACK_PATH}`
+  : `${process.env.SERVER_ADDRESS}:${process.env.SERVER_PORT}/${process.env.CALLBACK_PATH}`
+const RETURN_URL = process.env.PORT
+  ? `${process.env.SERVER_ADDRESS}/${process.env.CALLBACK_PATH}`
+  : `${process.env.SERVER_ADDRESS}:${process.env.SERVER_PORT}/${process.env.CALLBACK_PATH}`
 
 const buildLoginUrl = requestId => {
   const url = new URL(`https://${process.env.AUTH0_DOMAIN}/authorize`)
