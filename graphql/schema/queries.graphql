@@ -1,9 +1,12 @@
 # import Lesson, LessonNote from "./types/lesson.graphql"
 # import User from "./types/user.graphql"
+# import Department from "./types/department.graphql"
 
 type Query {
 	lessons: [Lesson!]!
 	lessonNotes(lesson: ID!): [LessonNote!]!
 
 	user(userId: ID): User!
+
+	departments: [Department!]!
 }

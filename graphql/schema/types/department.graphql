@@ -1,0 +1,9 @@
+type Department {
+    name: String!
+    institute: String!
+}
+
+input DepartmentInput {
+    name: String!
+    institute: String!
+}
