@@ -1,4 +1,4 @@
-exports = err => {
+module.exports = err => {
   if (process.env.NODE_ENV === 'development') {
     console.trace(err)
   } else {
