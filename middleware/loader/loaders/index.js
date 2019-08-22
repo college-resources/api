@@ -1,25 +1,38 @@
 const DataLoader = require('dataloader')
 
-const { getImages, getLessons, getUsers } = require('../graphql/resolvers/helpers')
+const {
+  getDepartments,
+  getImages,
+  getLessons,
+  getUsers
+} = require('../helpers')
 
-module.exports = (req, res, next) => {
+module.exports = () => {
   const loaders = {}
-  req.loaders = {
-    get images() {
+
+  return {
+    get department () {
+      if (!loaders.department) {
+        loaders.department = new DataLoader(getDepartments)
+      }
+
+      return loaders.department
+    },
+    get images () {
       if (!loaders.images) {
         loaders.images = new DataLoader(getImages)
       }
 
       return loaders.images
     },
-    get lesson() {
+    get lesson () {
       if (!loaders.lesson) {
         loaders.lesson = new DataLoader(getLessons)
       }
 
       return loaders.lesson
     },
-    get user() {
+    get user () {
       if (!loaders.user) {
         loaders.user = new DataLoader(getUsers)
       }
@@ -27,6 +40,4 @@ module.exports = (req, res, next) => {
       return loaders.user
     }
   }
-
-  next()
 }

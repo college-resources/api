@@ -35,7 +35,7 @@ const server = new ApolloServer({
 const app = express()
 app.use(morgan('dev', { stream: {
   write: msg => console.log(msg)
-}}))
+} }))
 app.use(helmet())
 app.use(cors({
   methods: ['GET', 'POST'],

@@ -125,7 +125,7 @@ router.post('/get_token', async (req, res) => {
           code: apiRequest._doc.code,
           redirect_uri: CALLBACK_URL
         })
-    
+
         res.send(result)
       } else {
         res.status(404)

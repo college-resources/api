@@ -1,7 +1,3 @@
-const Image = require('../../models/image')
-const Lesson = require('../../models/lesson')
-const User = require('../../models/user')
-
 exports.dateToString = date => new Date(date).toISOString()
 
 exports.transformData = data => {
@@ -75,19 +71,3 @@ exports.transformUser = user => {
     birthDate: this.dateToString(birthDate)
   }
 }
-
-exports.getImages = _ids => Image.find({
-  _id: { $in: _ids }
-})
-
-exports.getLessons = _ids => Lesson.find({
-  _id: { $in: _ids }
-})
-
-exports.getUsers = _ids => User.find({
-  _id: { $in: _ids }
-})
-
-exports.getLesson = Lesson.findById
-
-exports.getUser = User.findById
