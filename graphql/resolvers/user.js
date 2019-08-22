@@ -1,3 +1,4 @@
+const logger = require('../../modules/logger')
 const User = require('../../models/user')
 
 const { transformUser } = require('./helpers')
@@ -16,7 +17,7 @@ module.exports.user = async (_, args, req) => {
 
     return transformUser(user)
   } catch (err) {
-    throw err
+    logger(err)
   }
 }
 
@@ -44,6 +45,6 @@ module.exports.registerUser = async (_, args, req) => {
     req.loaders.user.prime(result.id, result)
     return transformUser(result)
   } catch (err) {
-    throw err
+    logger(err)
   }
 }

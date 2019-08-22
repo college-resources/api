@@ -1,3 +1,4 @@
+const logger = require('../../modules/logger')
 const Image = require('../../models/image')
 const Lesson = require('../../models/lesson')
 const LessonNote = require('../../models/lessonNote')
@@ -13,7 +14,7 @@ module.exports.lessons = async (_, args, req) => {
     const lessons = await Lesson.find()
     return lessons.map(transformLesson.bind(this, req.loaders))
   } catch (err) {
-    throw err
+    logger(err)
   }
 }
 
@@ -26,7 +27,7 @@ module.exports.lessonNotes = async (_, args, req) => {
     const lessonNotes = await LessonNote.find({ lesson: args.lesson })
     return lessonNotes.map(transformLessonNote.bind(this, req.loaders))
   } catch (err) {
-    throw err
+    logger(err)
   }
 }
 
@@ -45,7 +46,7 @@ module.exports.addLesson = async (_, args, req) => {
     req.loaders.lesson.prime(result.id, result)
     return transformLesson(req.loaders, result)
   } catch (err) {
-    throw err
+    logger(err)
   }
 }
 
@@ -73,6 +74,6 @@ module.exports.addLessonNotes = async (_, args, req) => {
     req.loaders.lessonNote.prime(result.id, result)
     return transformLessonNote(req.loaders, result)
   } catch (err) {
-    throw err
+    logger(err)
   }
 }
