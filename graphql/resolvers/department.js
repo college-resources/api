@@ -1,9 +1,11 @@
 const Department = require('../../models/department')
 
+const { transformDepartment } = require('./helpers')
+
 module.exports.departments = async (_, args, req) => {
   try {
     const departments = await Department.find()
-    return departments.map(d => d._doc)
+    return departments.map(transformDepartment)
   } catch (err) {
     throw err
   }

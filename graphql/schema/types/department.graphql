@@ -1,4 +1,5 @@
 type Department {
+    _id: ID!
     name: String!
     institute: String!
 }

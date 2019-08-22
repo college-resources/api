@@ -16,6 +16,12 @@ exports.transformData = data => {
   }
 }
 
+exports.transformDepartment = async department => {
+  return {
+    ...this.transformData(department)
+  }
+}
+
 exports.transformImage = async (loaders, image) => {
   const uploaderId = image._doc.uploader.toString()
 
