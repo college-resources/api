@@ -10,7 +10,8 @@ const lessonSchema = new Schema(
     },
     department: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
+      ref: 'Department'
     },
     semester: {
       type: Number,
@@ -18,6 +19,7 @@ const lessonSchema = new Schema(
     },
     creator: {
       type: Schema.Types.ObjectId,
+      required: true,
       ref: 'User'
     }
   },

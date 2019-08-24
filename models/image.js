@@ -22,7 +22,8 @@ const imageSchema = new Schema(
     },
     uploader: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
+      ref: 'User'
     }
   },
   { timestamps: true }
