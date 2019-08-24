@@ -33,14 +33,17 @@ exports.transformImage = async (loaders, image) => {
 
 exports.transformLesson = async (loaders, lesson) => {
   const creatorId = lesson._doc.creator.toString()
+  const departmentId = lesson._doc.department.toString()
 
-  const [creator] = await Promise.all([
-    loaders.user.load(creatorId) // creator
+  const [creator, department] = await Promise.all([
+    loaders.user.load(creatorId), // creator
+    loaders.department.load(departmentId) // department
   ])
 
   return {
     ...this.transformData(lesson),
-    creator: () => this.transformUser(creator)
+    creator: () => this.transformUser(creator),
+    department: () => this.transformDepartment(department)
   }
 }
 

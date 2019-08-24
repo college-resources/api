@@ -22,7 +22,8 @@ module.exports.addDepartment = async (_, args, req) => {
     })
 
     const result = await department.save()
-    return result._doc
+    req.loaders.department.prime(result.id, result)
+    return transformDepartment(result)
   } catch (err) {
     logger(err)
   }

@@ -1,10 +1,11 @@
 # import Image, ImageInput from "./image.graphql"
 # import User from "./user.graphql"
+# import Department from "./department.graphql"
 
 type Lesson {
   _id: ID!
   name: String!
-  department: String!
+  department: Department!
   semester: Int!
   creator: User!
 }
@@ -19,7 +20,7 @@ type LessonNote {
 
 input LessonInput {
   name: String!
-  department: String!
+  department: ID!
   semester: Int!
 }
 
