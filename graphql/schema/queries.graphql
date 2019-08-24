@@ -3,7 +3,7 @@
 # import Department from "./types/department.graphql"
 
 type Query {
-	lessons: [Lesson!]!
+	lessons(departmentId: ID): [Lesson!]!
 	lessonNotes(lesson: ID!): [LessonNote!]!
 
 	user(userId: ID): User!

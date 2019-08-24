@@ -8,10 +8,15 @@ const { transformLesson, transformLessonNote } = require('./helpers')
 module.exports.lessons = async (_, args, req) => {
   try {
     await req.user.checkAuthentication()
-
-    // TODO: Implement search
     // TODO: Implement loader
-    const lessons = await Lesson.find()
+
+    let lessons
+
+    if (args.departmentId) {
+      lessons = await Lesson.find({ department: args.departmentId })
+    } else {
+      lessons = await Lesson.find()
+    }
     return lessons.map(transformLesson.bind(this, req.loaders))
   } catch (err) {
     logger(err)
