@@ -1,0 +1,20 @@
+type Day {
+  breakfast: String
+  lunch: String
+  dinner: String
+}
+
+input DayInput {
+  breakfast: String
+  lunch: String
+  dinner: String
+}
+
+type Feeding {
+  _id: ID!
+  days: [Day!]!
+}
+
+input FeedingInput {
+  days: [DayInput!]!
+}

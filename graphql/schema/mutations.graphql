@@ -1,6 +1,7 @@
 # import Lesson, LessonInput, LessonNote, LessonNoteInput from "./types/lesson.graphql"
 # import registerUserInput from "./types/user.graphql"
 # import Department, DepartmentInput from "./types/department.graphql"
+# import Feeding, FeedingInput from "./types/feeding.graphql"
 
 type Mutation {
   addLesson(lesson: LessonInput!): Lesson!
@@ -9,4 +10,6 @@ type Mutation {
   registerUser(user: registerUserInput): User!
 
   addDepartment(department: DepartmentInput!): Department!
+
+  addFeeding(feeding: FeedingInput!): Feeding!
 }
