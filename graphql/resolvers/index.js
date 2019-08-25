@@ -1,6 +1,7 @@
 const { lessons, lessonNotes, addLesson, addLessonNotes } = require('./lesson')
 const { user, registerUser } = require('./user')
 const { departments, addDepartment } = require('./department')
+const { feeding, addFeeding } = require('./feeding')
 
 module.exports.Query = {
   lessons,
@@ -8,7 +9,9 @@ module.exports.Query = {
 
   user,
 
-  departments
+  departments,
+
+  feeding
 }
 
 module.exports.Mutation = {
@@ -17,5 +20,7 @@ module.exports.Mutation = {
 
   registerUser,
 
-  addDepartment
+  addDepartment,
+
+  addFeeding
 }

@@ -17,7 +17,8 @@ const feedingSchema = new Schema(
         }
       }
     ]
-  }
+  },
+  { timestamps: true }
 )
 
 module.exports = mongoose.model('Feeding', feedingSchema)
