@@ -1,20 +1,28 @@
+type Meal {
+  time: String
+  menu: String
+}
+
+input MealInput {
+  time: String
+  menu: String
+}
+
 type Day {
-  breakfast: String
-  lunch: String
-  dinner: String
+  meals: [Meal!]!
 }
 
 input DayInput {
-  breakfast: String
-  lunch: String
-  dinner: String
+  meals: [MealInput!]!
 }
 
 type Feeding {
   _id: ID!
   days: [Day!]!
+  startsFrom: String!
 }
 
 input FeedingInput {
   days: [DayInput!]!
+  startsFrom: String!
 }

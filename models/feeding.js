@@ -4,19 +4,22 @@ const Schema = mongoose.Schema
 
 const feedingSchema = new Schema(
   {
-    days: [
-      {
-        breakfast: {
-          type: String
+    days: [{
+      meals: [{
+        time: {
+          type: String,
+          required: true
         },
-        lunch: {
-          type: String
-        },
-        dinner: {
-          type: String
+        menu: {
+          type: String,
+          required: true
         }
-      }
-    ]
+      }]
+    }],
+    startsFrom: {
+      type: Date,
+      required: true
+    }
   },
   { timestamps: true }
 )
