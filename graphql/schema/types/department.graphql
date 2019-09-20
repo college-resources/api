@@ -1,10 +1,10 @@
 type Department {
     _id: ID!
     name: String!
-    institute: String!
+    institute: String
 }
 
 input DepartmentInput {
     name: String!
-    institute: String!
+    institute: String
 }
