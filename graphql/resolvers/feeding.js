@@ -20,10 +20,12 @@ module.exports.addFeeding = async (_, args, req) => {
     await req.user.checkAuthentication()
 
     const dataSet = {
-      days: args.feeding.days.map(d => ({
-        meals: d.meals.map(m => ({
-          time: m.time,
-          menu: m.menu
+      weeks: args.feeding.weeks.map(w => ({
+        days: w.map(d => ({
+          meals: d.meals.map(m => ({
+            time: m.time,
+            menu: m.menu
+          }))
         }))
       })),
       startsFrom: args.feeding.startsFrom
@@ -32,7 +34,7 @@ module.exports.addFeeding = async (_, args, req) => {
     console.log(JSON.stringify(dataSet))
 
     const feeding = new Feeding(dataSet)
-    feeding.markModified('days')
+    feeding.markModified('weeks')
 
     const result = await feeding.save()
     return transformData(result)

@@ -12,13 +12,17 @@ type Day {
   meals: [Meal!]!
 }
 
+type Week {
+  days: [Day!]!
+}
+
 input DayInput {
   meals: [MealInput!]!
 }
 
 type Feeding {
   _id: ID!
-  days: [Day!]!
+  weeks: [Week!]!
   startsFrom: String!
 }
 

@@ -4,16 +4,18 @@ const Schema = mongoose.Schema
 
 const feedingSchema = new Schema(
   {
-    days: [{
-      meals: [{
-        time: {
-          type: String,
-          required: true
-        },
-        menu: {
-          type: String,
-          required: true
-        }
+    weeks: [{
+      days: [{
+        meals: [{
+          time: {
+            type: String,
+            required: true
+          },
+          menu: {
+            type: String,
+            required: true
+          }
+        }]
       }]
     }],
     startsFrom: {
