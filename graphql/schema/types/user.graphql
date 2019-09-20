@@ -1,24 +1,35 @@
 type User {
+  # MongoDB _id
   _id: ID!
+  # Auth0 email
   email: String!
+  # Auth0 email_verified
   emailVerified: Boolean!
+  # User name
   name: String!
+  # User first name
   givenName: String!
+  # User last name
   familyName: String!
-  middleName: String
-  nickname: String!
-  gender: String!
-  birthDate: String!
+  # User birth date
+  birthDate: String
+  # Path to user picture
   picture: String!
+  # User department
+  department: ID
 }
 
 input registerUserInput {
+  # User name
   name: String!
+  # User first name
   givenName: String!
+  # User last name
   familyName: String!
-  middleName: String
-  nickname: String!
-  gender: String!
-  birthDate: String!
+  # User birth date
+  birthDate: String
+  # Path to user picture
   picture: String!
+  # User department
+  department: ID
 }

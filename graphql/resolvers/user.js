@@ -34,11 +34,9 @@ module.exports.registerUser = async (_, args, req) => {
       name: args.user.name,
       givenName: args.user.givenName,
       familyName: args.user.familyName,
-      middleName: args.user.middleName,
-      nickname: args.user.nickname,
-      gender: args.user.gender,
-      birthDate: new Date(args.user.birthDate),
-      picture: args.user.picture
+      birthDate: args.user.birthDate && new Date(args.user.birthDate),
+      picture: args.user.picture || auth0UserInfo.picture,
+      department: args.user.department
     })
 
     const result = await user.save()
