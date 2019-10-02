@@ -20,6 +20,10 @@ input DayInput {
   meals: [MealInput!]!
 }
 
+input WeekInput {
+  days: [DayInput!]!
+}
+
 type Feeding {
   _id: ID!
   weeks: [Week!]!
@@ -27,6 +31,6 @@ type Feeding {
 }
 
 input FeedingInput {
-  days: [DayInput!]!
+  weeks: [WeekInput!]!
   startsFrom: String!
 }
