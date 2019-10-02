@@ -21,7 +21,7 @@ module.exports.addFeeding = async (_, args, req) => {
 
     const dataSet = {
       weeks: args.feeding.weeks.map(w => ({
-        days: w.map(d => ({
+        days: w.days.map(d => ({
           meals: d.meals.map(m => ({
             time: m.time,
             menu: m.menu
