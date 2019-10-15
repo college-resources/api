@@ -44,6 +44,11 @@ module.exports.addLesson = async (_, args, req) => {
       name: args.lesson.name,
       department: args.lesson.department,
       semester: args.lesson.semester,
+      lessonCode: args.lesson.lessonCode,
+      hoursLab: args.lesson.hoursLab,
+      hoursTheory: args.lesson.hoursTheory,
+      credit: args.lesson.credit,
+      type: args.lesson.type,
       creator: req.user.id
     })
 

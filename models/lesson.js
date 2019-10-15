@@ -17,6 +17,26 @@ const lessonSchema = new Schema(
       type: Number,
       required: true
     },
+    lessonCode: {
+      type: Number,
+      required: true
+    },
+    hoursLab: {
+      type: Number,
+      required: false
+    },
+    hoursTheory: {
+      type: Number,
+      required: false
+    },
+    credit: {
+      type: Number,
+      required: true
+    },
+    type: {
+      type: String,
+      required: true
+    },
     creator: {
       type: Schema.Types.ObjectId,
       required: true,

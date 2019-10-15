@@ -7,6 +7,11 @@ type Lesson {
   name: String!
   department: Department!
   semester: Int!
+  lessonCode: String!
+  hoursLab: Int
+  hoursTheory: Int
+  credit: Int!
+  type: String!
   creator: User!
 }
 
@@ -22,6 +27,11 @@ input LessonInput {
   name: String!
   department: ID!
   semester: Int!
+  lessonCode: String!
+  hoursLab: Int
+  hoursTheory: Int
+  credit: Int!
+  type: String!
 }
 
 input LessonNoteInput {
