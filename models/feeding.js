@@ -7,7 +7,11 @@ const feedingSchema = new Schema(
     weeks: [{
       days: [{
         meals: [{
-          time: {
+          timeStart: {
+            type: String,
+            required: true
+          },
+          timeEnd: {
             type: String,
             required: true
           },

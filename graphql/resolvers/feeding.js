@@ -23,7 +23,8 @@ module.exports.addFeeding = async (_, args, req) => {
       weeks: args.feeding.weeks.map(w => ({
         days: w.days.map(d => ({
           meals: d.meals.map(m => ({
-            time: m.time,
+            timeStart: m.timeStart,
+            timeEnd: m.timeEnd,
             menu: m.menu
           }))
         }))

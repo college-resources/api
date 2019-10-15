@@ -1,10 +1,12 @@
 type Meal {
-  time: String
+  timeStart: String
+  timeEnd: String
   menu: String
 }
 
 input MealInput {
-  time: String
+  timeStart: String
+  timeEnd: String
   menu: String
 }
 
