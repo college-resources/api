@@ -29,6 +29,7 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => req,
   debug: process.env.NODE_ENV === 'development',
+  introspection: true,
   playground: {
     settings: {
       'request.credentials': 'include',
