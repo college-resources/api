@@ -3,18 +3,20 @@ const Image = require('../../../models/image')
 const Lesson = require('../../../models/lesson')
 const User = require('../../../models/user')
 
+const sorter = sortingArr => (a, b) => (sortingArr.indexOf(a.id) - sortingArr.indexOf(b.id))
+
 exports.getDepartments = _ids => Department.find({
   _id: { $in: _ids }
-})
+}).then(items => items.sort(sorter(_ids)))
 
 exports.getImages = _ids => Image.find({
   _id: { $in: _ids }
-})
+}).then(items => items.sort(sorter(_ids)))
 
 exports.getLessons = _ids => Lesson.find({
   _id: { $in: _ids }
-})
+}).then(items => items.sort(sorter(_ids)))
 
 exports.getUsers = _ids => User.find({
   _id: { $in: _ids }
-})
+}).then(items => items.sort(sorter(_ids)))
