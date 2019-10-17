@@ -8,11 +8,11 @@ const feedingSchema = new Schema(
       days: [{
         meals: [{
           timeStart: {
-            type: String,
+            type: Number,
             required: true
           },
           timeEnd: {
-            type: String,
+            type: Number,
             required: true
           },
           menu: {
