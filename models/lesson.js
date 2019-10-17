@@ -18,7 +18,7 @@ const lessonSchema = new Schema(
       required: true
     },
     lessonCode: {
-      type: Number,
+      type: String,
       required: true
     },
     hoursLab: {
