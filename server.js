@@ -29,7 +29,12 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => req,
   debug: process.env.NODE_ENV === 'development',
-  playground: process.env.NODE_ENV === 'development'
+  playground: {
+    settings: {
+      'request.credentials': 'include',
+      'schema.polling.interval': 5000
+    }
+  }
 })
 
 const app = express()
