@@ -29,10 +29,12 @@ input WeekInput {
 type Feeding {
   _id: ID!
   weeks: [Week!]!
+  name: String!
   startsFrom: String!
 }
 
 input FeedingInput {
   weeks: [WeekInput!]!
+  name: String!
   startsFrom: String!
 }

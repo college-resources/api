@@ -22,6 +22,10 @@ const feedingSchema = new Schema(
         }]
       }]
     }],
+    name: {
+      type: String,
+      required: true
+    },
     startsFrom: {
       type: Date,
       required: true

@@ -29,6 +29,7 @@ module.exports.addFeeding = async (_, args, req) => {
           }))
         }))
       })),
+      name: args.feeding.name,
       startsFrom: args.feeding.startsFrom
     }
 
