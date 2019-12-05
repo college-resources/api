@@ -1,4 +1,4 @@
-exports.dateToString = date => new Date(date).toISOString()
+exports.dateToString = date => date ? new Date(date).toISOString() : ''
 
 exports.transformData = data => {
   if (data._doc) {

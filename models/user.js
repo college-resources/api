@@ -10,21 +10,6 @@ const userSchema = new Schema(
       required: true,
       unique: true
     },
-    // Auth0 email
-    email: {
-      type: String,
-      required: true
-    },
-    // Auth0 email_verified
-    emailVerified: {
-      type: Boolean,
-      required: true
-    },
-    // User name
-    name: {
-      type: String,
-      required: true
-    },
     // User first name
     givenName: {
       type: String,

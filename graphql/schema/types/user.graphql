@@ -1,12 +1,6 @@
 type User {
   # MongoDB _id
   _id: ID!
-  # Auth0 email
-  email: String!
-  # Auth0 email_verified
-  emailVerified: Boolean!
-  # User name
-  name: String!
   # User first name
   givenName: String!
   # User last name
@@ -20,8 +14,6 @@ type User {
 }
 
 input registerUserInput {
-  # User name
-  name: String!
   # User first name
   givenName: String!
   # User last name
