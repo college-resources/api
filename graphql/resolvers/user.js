@@ -25,17 +25,12 @@ module.exports.registerUser = async (_, args, req) => {
   try {
     await req.user.checkAuthentication({ ignoreRegistration: true })
 
-    const auth0UserInfo = await req.auth.authenticationClient.getProfile(req.token)
-
     const user = new User({
-      sub: auth0UserInfo.sub,
-      email: auth0UserInfo.email,
-      emailVerified: auth0UserInfo.email_verified,
-      name: args.user.name,
+      sub: req.user.sub,
       givenName: args.user.givenName,
       familyName: args.user.familyName,
       birthDate: args.user.birthDate && new Date(args.user.birthDate),
-      picture: args.user.picture || auth0UserInfo.picture,
+      picture: args.user.picture,
       department: args.user.department
     })
 

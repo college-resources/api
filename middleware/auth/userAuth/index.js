@@ -2,8 +2,6 @@ const { AuthenticationError } = require('apollo-server-express')
 
 const User = require('../../../models/user')
 const { decodeToken } = require('./jwt')
-const { authenticationClient } = require('./auth0')
-
 const userAuth = async req => {
   // Check database for user and update req.user
   const updateReqUser = async () => {
@@ -13,8 +11,9 @@ const userAuth = async req => {
         req.user[key] = dbUser[key]
       })
 
-      req.user.id = dbUser.id
-      req.user.isRegistered = true
+      // TODO: Rewrite to prevent race condition
+      req.user.id = dbUser.id // eslint-disable-line
+      req.user.isRegistered = true // eslint-disable-line
     }
   }
 
@@ -58,4 +57,4 @@ const userAuth = async req => {
   }
 }
 
-module.exports = { authenticationClient, userAuth }
+module.exports = { userAuth }

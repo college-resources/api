@@ -1,11 +1,8 @@
-const { authenticationClient, userAuth } = require('./userAuth')
+const { userAuth } = require('./userAuth')
 
 module.exports = async (req, res, next) => {
-  req.auth = {
-    authenticationClient
-  }
-
-  req.user = await userAuth(req)
+  // TODO: Rewrite to prevent race condition
+  req.user = await userAuth(req) // eslint-disable-line
 
   next()
 }
