@@ -7,7 +7,6 @@ const { transformLesson, transformLessonNote } = require('./helpers')
 
 module.exports.lessons = async (_, args, req) => {
   try {
-    await req.user.checkAuthentication()
     // TODO: Implement loader
 
     let lessons
@@ -25,8 +24,6 @@ module.exports.lessons = async (_, args, req) => {
 
 module.exports.lessonNotes = async (_, args, req) => {
   try {
-    await req.user.checkAuthentication()
-
     // TODO: Implement search
     // TODO: Implement loader
     const lessonNotes = await LessonNote.find({ lesson: args.lesson })
