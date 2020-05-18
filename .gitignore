@@ -60,6 +60,9 @@ typings/
 # next.js build output
 .next
 
+# Webpach build output
+dist
+
 # IDE configuration
 .vscode/
 .idea/

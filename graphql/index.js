@@ -1,9 +1,5 @@
-const path = require('path')
-
-const { importSchema } = require('graphql-import')
-
-exports.typeDefs = importSchema(path.join(__dirname, 'schema/schema.graphql'))
+const typeDefs = require('./schema')
+exports.typeDefs = typeDefs
 
 const resolvers = require('./resolvers')
-
 exports.resolvers = resolvers
