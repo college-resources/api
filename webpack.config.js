@@ -3,7 +3,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: './server.js',
+  entry: './bin/www',
   target: 'node',
   module: {
     rules: [
