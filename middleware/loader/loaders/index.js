@@ -4,6 +4,7 @@ const {
   getDepartments,
   getImages,
   getLessons,
+  getLessonNotes,
   getUsers
 } = require('../helpers')
 
@@ -31,6 +32,13 @@ module.exports = () => {
       }
 
       return loaders.lesson
+    },
+    get lessonNote () {
+      if (!loaders.lessonNote) {
+        loaders.lessonNote = new DataLoader(getLessonNotes)
+      }
+
+      return loaders.lessonNote
     },
     get user () {
       if (!loaders.user) {

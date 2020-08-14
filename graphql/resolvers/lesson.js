@@ -61,14 +61,16 @@ module.exports.addLessonNotes = async (_, args, req) => {
   try {
     await req.user.checkAuthentication()
 
-    const images = await Image.insertMany(
-      args.lessonNote.images.map(img => ({
-        url: img.url,
-        uploader: req.user.id
-      }))
-    )
+    const images = args.lessonNote.images
+      ? await Image.insertMany(
+        args.lessonNote.images.map(img => ({
+          url: img.url,
+          uploader: req.user.id
+        }))
+      )
+      : []
 
-    images.forEach(image => req.loaders.image.prime(image.id, image))
+    images.forEach(image => req.loaders.images.prime(image.id, image))
 
     const lessonNote = new LessonNote({
       images: images.map(img => img._doc._id),

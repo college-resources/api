@@ -1,6 +1,7 @@
 const Department = require('../../../models/department')
 const Image = require('../../../models/image')
 const Lesson = require('../../../models/lesson')
+const LessonNote = require('../../../models/lessonNote')
 const User = require('../../../models/user')
 
 const sorter = sortingArr => (a, b) => (sortingArr.indexOf(a.id) - sortingArr.indexOf(b.id))
@@ -14,6 +15,10 @@ exports.getImages = _ids => Image.find({
 }).then(items => items.sort(sorter(_ids)))
 
 exports.getLessons = _ids => Lesson.find({
+  _id: { $in: _ids }
+}).then(items => items.sort(sorter(_ids)))
+
+exports.getLessonNotes = _ids => LessonNote.find({
   _id: { $in: _ids }
 }).then(items => items.sort(sorter(_ids)))
 
