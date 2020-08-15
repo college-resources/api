@@ -12,4 +12,5 @@ type Mutation {
   addDepartment(department: DepartmentInput!): Department!
 
   addFeeding(feeding: FeedingInput!): Feeding!
+  removeFeeding(feedingId: ID!): String!
 }
