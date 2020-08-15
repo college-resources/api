@@ -44,3 +44,14 @@ module.exports.addFeeding = async (_, args, req) => {
     logger(err)
   }
 }
+
+module.exports.removeFeeding = async (_, args, req) => {
+  try {
+    await req.user.checkAuthentication()
+
+    await Feeding.findByIdAndDelete(args.feedingId)
+    return 'Deleted'
+  } catch (err) {
+    logger(err)
+  }
+}
