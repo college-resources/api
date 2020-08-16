@@ -17,6 +17,9 @@ type Lesson {
 
 type LessonNote {
   _id: ID!
+  title: String!
+  date: String!
+  examMonth: Int
   images: [Image!]!
   hypertexts: [String!]!
   lesson: Lesson!
@@ -35,6 +38,9 @@ input LessonInput {
 }
 
 input LessonNoteInput {
+  title: String!
+  date: String!
+  examMonth: Int
   images: [ImageInput!]
   hypertexts: [String!]
   lesson: ID!
