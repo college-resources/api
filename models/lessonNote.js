@@ -4,6 +4,18 @@ const Schema = mongoose.Schema
 
 const lessonNoteSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: true
+    },
+    date: {
+      type: Date,
+      required: true
+    },
+    examMonth: {
+      type: Number,
+      required: false
+    },
     images: [
       {
         type: Schema.Types.ObjectId,

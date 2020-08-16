@@ -51,6 +51,7 @@ exports.transformLessonNote = async (loaders, lessonNote) => {
   const imagesIds = lessonNote._doc.images.map(img => img.toString())
   const lessonId = lessonNote._doc.lesson.toString()
   const creatorId = lessonNote._doc.creator.toString()
+  const date = lessonNote._doc.date
 
   const [images, lesson, creator] = await Promise.all([
     loaders.images.loadMany(imagesIds), // images
@@ -62,7 +63,8 @@ exports.transformLessonNote = async (loaders, lessonNote) => {
     ...this.transformData(lessonNote),
     images: () => images.map(this.transformImage.bind(this, loaders)),
     lesson: () => this.transformLesson(loaders, lesson),
-    creator: () => this.transformUser(creator)
+    creator: () => this.transformUser(creator),
+    date: () => this.dateToString(date)
   }
 }
 
