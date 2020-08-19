@@ -8,6 +8,24 @@ const imageSchema = new Schema(
       type: String,
       required: true
     },
+    details: {
+      url: {
+        type: String,
+        required: false
+      },
+      width: {
+        type: Number,
+        required: false
+      },
+      height: {
+        type: Number,
+        required: false
+      },
+      type: {
+        type: String,
+        required: false
+      }
+    },
     width: {
       type: Number,
       required: false
