@@ -1,0 +1,6 @@
+type OgImage {
+  url: String
+  width: Int
+  height: Int
+  type: String
+}

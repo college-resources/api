@@ -1,3 +1,5 @@
+const ogs = require('open-graph-scraper')
+
 const logger = require('../../modules/logger')
 const Image = require('../../models/image')
 const Lesson = require('../../models/lesson')
@@ -62,12 +64,16 @@ module.exports.addLessonNotes = async (_, args, req) => {
     await req.user.checkAuthentication()
 
     const images = args.lessonNote.images
-      ? await Image.insertMany(
-        args.lessonNote.images.map(img => ({
+      ? await Image.insertMany(await Promise.all(
+        args.lessonNote.images.map(async img => ({
           url: img.url,
-          uploader: req.user.id
+          uploader: req.user.id,
+          details: await ogs({ url: img.url })
+            .then(({ result }) => result.ogImage || {})
+            .then(({ url, width, height, type }) => ({ url, width, height, type }))
+            .catch(() => null) || {}
         }))
-      )
+      ))
       : []
 
     images.forEach(image => req.loaders.images.prime(image.id, image))

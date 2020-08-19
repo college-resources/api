@@ -1,8 +1,10 @@
 # import User from "./user.graphql"
+# import OgImage from "./opengraph.graphql"
 
 type Image {
   _id: ID!
   url: String!
+  details: OgImage
   width: Int
   height: Int
   fileSize: Int
