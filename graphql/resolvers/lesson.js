@@ -81,8 +81,8 @@ module.exports.addLessonNotes = async (_, args, req) => {
     const lessonNote = new LessonNote({
       title: args.lessonNote.title,
       date: args.lessonNote.date
-        ? new Date(0)
-        : args.lessonNote.date && new Date(args.lessonNote.date),
+        ? new Date(args.lessonNote.date)
+        : new Date(0),
       examMonth: args.lessonNote.examMonth,
       images: images.map(img => img._doc._id),
       hypertexts: args.lessonNote.hypertexts,
