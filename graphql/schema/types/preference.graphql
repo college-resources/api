@@ -1,0 +1,18 @@
+type Preference {
+  _id: ID!
+  user: ID!
+  feeding: ID
+  department: ID
+  semester: Int
+  courses: [ID]
+  theme: String
+}
+
+input PreferenceInput {
+  user: ID!
+  feeding: ID
+  department: ID
+  semester: Int
+  courses: [ID]
+  theme: String
+}
