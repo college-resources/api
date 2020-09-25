@@ -2,6 +2,7 @@
 # import User from "./types/user.graphql"
 # import Department from "./types/department.graphql"
 # import Feeding from "./types/feeding.graphql"
+# import Preference from "./types/preference.graphql"
 
 type Query {
 	lessons(departmentId: ID): [Lesson!]!
@@ -12,4 +13,6 @@ type Query {
 	departments: [Department!]!
 
 	feeding: [Feeding]!
+
+	preference(user: ID!): [Preference!]!
 }
