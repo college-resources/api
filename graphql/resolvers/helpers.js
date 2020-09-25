@@ -76,3 +76,31 @@ exports.transformUser = user => {
     birthDate: this.dateToString(birthDate)
   }
 }
+
+exports.transformFeeding = async feeding => {
+  return {
+    ...this.transformData(feeding)
+  }
+}
+
+exports.transformPreference = async (loaders, preference) => {
+  const userId = preference._doc.user.toString()
+  const feedingId = preference._doc.feeding.toString()
+  const departmentId = preference._doc.department.toString()
+  const coursesIds = preference._doc.courses.map(course => course.toString())
+
+  const [user, feeding, department, courses] = await Promise.all([
+    loaders.user.load(userId), // user
+    loaders.feeding.load(feedingId), // feeding
+    loaders.department.load(departmentId), // department
+    loaders.courses.loadMany(coursesIds) // courses
+  ])
+
+  return {
+    ...this.transformData(preference),
+    user: () => this.transformUser(user),
+    feeding: () => this.transformFeeding(feeding),
+    department: () => this.transformDepartment(department),
+    courses: () => courses.map(this.transformLesson.bind(this, loaders))
+  }
+}
