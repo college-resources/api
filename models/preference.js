@@ -26,7 +26,7 @@ const preferenceSchema = new Schema(
     courses: [{
       type: Schema.Types.ObjectId,
       ref: 'Lesson',
-      required: false
+      required: true
     }],
     theme: {
       type: String,

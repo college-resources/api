@@ -4,7 +4,7 @@ type Preference {
   feeding: ID
   department: ID
   semester: Int
-  courses: [ID]
+  courses: [ID!]
   theme: String
 }
 
