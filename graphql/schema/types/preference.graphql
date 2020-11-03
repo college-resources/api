@@ -1,18 +1,22 @@
+# import User from "./user.graphql"
+# import Department from "./department.graphql"
+# import Feeding from "./feeding.graphql"
+# import Lesson from "./lesson.graphql"
+
 type Preference {
   _id: ID!
-  user: ID!
-  feeding: ID
-  department: ID
+  user: User!
+  feeding: Feeding
+  department: Department
   semester: Int
-  courses: [ID!]
+  courses: [Lesson!]
   theme: String
 }
 
 input PreferenceInput {
-  user: ID!
   feeding: ID
   department: ID
   semester: Int
-  courses: [ID]
+  courses: [ID!]
   theme: String
 }
