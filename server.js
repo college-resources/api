@@ -23,6 +23,7 @@ const auth = require('./middleware/auth')
 const loader = require('./middleware/loader')
 
 mongoose.set('useCreateIndex', true)
+mongoose.set('useUnifiedTopology', true)
 
 const server = new ApolloServer({
   typeDefs,
@@ -42,7 +43,7 @@ const app = express()
 app.use(morgan('dev', { stream: {
   write: msg => console.log(msg)
 } }))
-app.use(helmet())
+app.use(helmet({ contentSecurityPolicy: false }))
 app.use(cors({
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
