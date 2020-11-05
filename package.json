@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run development",
     "development": "cross-env NODE_ENV=development node .",
-    "watch": "npm-run-all --sequential nodemon .",
+    "watch": "cross-env NODE_ENV=development nodemon .",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node .",
     "lint": "eslint --ext .js .",
@@ -46,7 +46,6 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
     "npm-check-updates": "^9.2.4",
-    "npm-run-all": "^4.1.5",
     "open-graph-scraper": "^4.7.0",
     "terser-webpack-plugin": "^5.0.3"
   }
