@@ -7,21 +7,14 @@ module.exports.preference = async (_, args, req) => {
   try {
     await req.user.checkAuthentication()
 
-    let preferences
-
-    if (args.user) {
-      preferences = await Preference.find({ user: args.user })
-    } else {
-      preferences = await Preference.find()
-    }
-
-    return preferences.map(transformPreference.bind(this, req.loaders))
+    const result = await Preference.findOne({ user: req.user.id })
+    return transformPreference(req.loaders, result)
   } catch (err) {
     logger(err)
   }
 }
 
-module.exports.addPreference = async (_, args, req) => {
+module.exports.updatePreferences = async (_, args, req) => {
   try {
     await req.user.checkAuthentication()
 
@@ -43,13 +36,22 @@ module.exports.addPreference = async (_, args, req) => {
       request.theme = args.preference.theme
     }
 
-    const result = await Preference.update(
+    let result = await Preference.findOneAndUpdate(
       { user: req.user.id },
       { $set: request },
       { new: true }
     )
-    // console.log(result._doc)
-    // req.loaders.preference.prime(result.id, result)
+
+    if (!result) {
+      const preference = new Preference({
+        ...request,
+        user: req.user.id
+      })
+
+      result = await preference.save()
+    }
+
+    req.loaders.preference.prime(result.id, result)
     return transformPreference(req.loaders, result)
   } catch (err) {
     logger(err)

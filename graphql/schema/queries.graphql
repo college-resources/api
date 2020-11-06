@@ -14,5 +14,5 @@ type Query {
 
 	feeding: [Feeding]!
 
-	preference(user: ID!): [Preference!]!
+	preference: Preference
 }

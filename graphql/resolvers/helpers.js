@@ -84,23 +84,27 @@ exports.transformFeeding = async feeding => {
 }
 
 exports.transformPreference = async (loaders, preference) => {
-  const userId = preference._doc.user.toString()
-  const feedingId = preference._doc.feeding.toString()
-  const departmentId = preference._doc.department.toString()
-  const coursesIds = preference._doc.courses.map(course => course.toString())
+  if (preference._doc) {
+    preference = preference._doc
+  }
+
+  const userId = preference.user.toString()
+  const feedingId = preference.feeding?.toString()
+  const departmentId = preference.department?.toString()
+  const coursesIds = preference.courses?.map(course => course.toString())
 
   const [user, feeding, department, courses] = await Promise.all([
     loaders.user.load(userId), // user
-    loaders.feeding.load(feedingId), // feeding
-    loaders.department.load(departmentId), // department
-    loaders.courses.loadMany(coursesIds) // courses
+    feedingId ? loaders.feeding.load(feedingId) : Promise.resolve(null), // feeding
+    departmentId ? loaders.department.load(departmentId) : Promise.resolve(null), // department
+    coursesIds ? loaders.lesson.loadMany(coursesIds) : Promise.resolve(null) // courses
   ])
 
   return {
     ...this.transformData(preference),
     user: () => this.transformUser(user),
-    feeding: () => this.transformFeeding(feeding),
-    department: () => this.transformDepartment(department),
-    courses: () => courses.map(this.transformLesson.bind(this, loaders))
+    feeding: () => feeding && this.transformFeeding(feeding),
+    department: () => department && this.transformDepartment(department),
+    courses: () => coursesIds && courses.map(this.transformLesson.bind(this, loaders))
   }
 }
