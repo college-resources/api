@@ -7,7 +7,8 @@ const preferenceSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: true,
+      unique: true
     },
     feeding: {
       type: Schema.Types.ObjectId,
