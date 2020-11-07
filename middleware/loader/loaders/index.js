@@ -56,12 +56,12 @@ module.exports = () => {
 
       return loaders.feeding
     },
-    get preference () {
-      if (!loaders.preference) {
-        loaders.preference = new DataLoader(getPreferences)
+    get preferences () {
+      if (!loaders.preferences) {
+        loaders.preferences = new DataLoader(getPreferences)
       }
 
-      return loaders.preference
+      return loaders.preferences
     }
   }
 }

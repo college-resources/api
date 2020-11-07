@@ -3,7 +3,7 @@
 # import Feeding from "./feeding.graphql"
 # import Lesson from "./lesson.graphql"
 
-type Preference {
+type Preferences {
   _id: ID!
   user: User!
   feeding: Feeding
@@ -13,7 +13,7 @@ type Preference {
   theme: String
 }
 
-input PreferenceInput {
+input PreferencesInput {
   feeding: ID
   department: ID
   semester: Int

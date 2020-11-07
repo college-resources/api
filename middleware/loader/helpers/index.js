@@ -4,7 +4,7 @@ const Lesson = require('../../../models/lesson')
 const LessonNote = require('../../../models/lessonNote')
 const User = require('../../../models/user')
 const Feeding = require('../../../models/feeding')
-const Preference = require('../../../models/preference')
+const Preferences = require('../../../models/preferences')
 
 const sorter = sortingArr => (a, b) => (sortingArr.indexOf(a.id) - sortingArr.indexOf(b.id))
 
@@ -32,6 +32,6 @@ exports.getFeedings = _ids => Feeding.find({
   _id: { $in: _ids }
 }).then(items => items.sort(sorter(_ids)))
 
-exports.getPreferences = _ids => Feeding.find({
+exports.getPreferences = _ids => Preferences.find({
   _id: { $in: _ids }
 }).then(items => items.sort(sorter(_ids)))

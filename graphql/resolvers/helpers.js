@@ -83,15 +83,15 @@ exports.transformFeeding = async feeding => {
   }
 }
 
-exports.transformPreference = async (loaders, preference) => {
-  if (preference._doc) {
-    preference = preference._doc
+exports.transformPreferences = async (loaders, preferences) => {
+  if (preferences._doc) {
+    preferences = preferences._doc
   }
 
-  const userId = preference.user.toString()
-  const feedingId = preference.feeding?.toString()
-  const departmentId = preference.department?.toString()
-  const coursesIds = preference.courses?.map(course => course.toString())
+  const userId = preferences.user.toString()
+  const feedingId = preferences.feeding?.toString()
+  const departmentId = preferences.department?.toString()
+  const coursesIds = preferences.courses?.map(course => course.toString())
 
   const [user, feeding, department, courses] = await Promise.all([
     loaders.user.load(userId), // user
@@ -101,7 +101,7 @@ exports.transformPreference = async (loaders, preference) => {
   ])
 
   return {
-    ...this.transformData(preference),
+    ...this.transformData(preferences),
     user: () => this.transformUser(user),
     feeding: () => feeding && this.transformFeeding(feeding),
     department: () => department && this.transformDepartment(department),

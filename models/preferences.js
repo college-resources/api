@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const preferenceSchema = new Schema(
+const preferencesSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -36,4 +36,4 @@ const preferenceSchema = new Schema(
   }
 )
 
-module.exports = mongoose.model('Preference', preferenceSchema)
+module.exports = mongoose.model('Preferences', preferencesSchema)
