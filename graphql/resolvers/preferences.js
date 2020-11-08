@@ -1,5 +1,6 @@
 const logger = require('../../modules/logger')
 const Preferences = require('../../models/preferences')
+const User = require('../../models/user')
 
 const { transformPreferences } = require('./helpers')
 
@@ -49,6 +50,11 @@ module.exports.updatePreferences = async (_, args, req) => {
       })
 
       result = await preferences.save()
+
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: { preferences: preferences._id } }
+      )
     }
 
     req.loaders.preferences.prime(result.id, result)
@@ -63,7 +69,7 @@ module.exports.deletePreference = async (_, args, req) => {
     await req.user.checkAuthentication()
 
     const request = await Preferences.findOne(
-      {user: req.user.id}
+      { user: req.user.id }
     )
 
     switch (args.preference) {

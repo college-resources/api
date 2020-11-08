@@ -34,6 +34,12 @@ const userSchema = new Schema(
     department: {
       type: Schema.Types.ObjectId,
       ref: 'Department'
+    },
+    // User preferences
+    preferences: {
+      type: Schema.Types.ObjectId,
+      ref: 'Preferences',
+      required: false
     }
   },
   { timestamps: true }

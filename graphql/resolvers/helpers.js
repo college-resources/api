@@ -68,12 +68,22 @@ exports.transformLessonNote = async (loaders, lessonNote) => {
   }
 }
 
-exports.transformUser = user => {
-  const birthDate = user._doc.birthDate
+exports.transformUser = async (loaders, user) => {
+  if (user._doc) {
+    user = user._doc
+  }
+
+  const birthDate = user.birthDate
+  const preferencesId = user.preferences?.toString()
+
+  const [preferences] = await Promise.all([
+    preferencesId ? loaders.preferences.load(preferencesId) : Promise.resolve(null)
+  ])
 
   return {
     ...this.transformData(user),
-    birthDate: this.dateToString(birthDate)
+    birthDate: this.dateToString(birthDate),
+    preferences: () => preferences && this.transformPreferences(loaders, preferences)
   }
 }
 
@@ -102,7 +112,7 @@ exports.transformPreferences = async (loaders, preferences) => {
 
   return {
     ...this.transformData(preferences),
-    user: () => this.transformUser(user),
+    user: () => this.transformUser(loaders, user),
     feeding: () => feeding && this.transformFeeding(feeding),
     department: () => department && this.transformDepartment(department),
     courses: () => coursesIds && courses.map(this.transformLesson.bind(this, loaders))

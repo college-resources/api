@@ -1,3 +1,5 @@
+#import Preferences from "./preferences.graphql"
+
 type User {
   # MongoDB _id
   _id: ID!
@@ -11,6 +13,8 @@ type User {
   picture: String!
   # User department
   department: ID
+  # User preferences
+  preferences: Preferences
 }
 
 input registerUserInput {
