@@ -57,3 +57,42 @@ module.exports.updatePreferences = async (_, args, req) => {
     logger(err)
   }
 }
+
+module.exports.deletePreference = async (_, args, req) => {
+  try {
+    await req.user.checkAuthentication()
+
+    const request = await Preferences.findOne(
+      {user: req.user.id}
+    )
+
+    switch (args.preference) {
+      case 'FEEDING':
+        request.feeding = null
+        break
+      case 'DEPARTMENT':
+        request.department = null
+        break
+      case 'SEMESTER':
+        request.semester = null
+        break
+      case 'COURSES':
+        request.courses = null
+        break
+      case 'THEME':
+        request.theme = null
+        break
+    }
+
+    let result = await Preferences.findOneAndUpdate(
+      { user: req.user.id },
+      { $set: request },
+      { new: true }
+    )
+
+    req.loaders.preferences.prime(result.id, result)
+    return transformPreferences(req.loaders, result)
+  } catch (err) {
+    logger(err)
+  }
+}

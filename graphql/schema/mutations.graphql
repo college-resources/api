@@ -2,7 +2,7 @@
 # import registerUserInput from "./types/user.graphql"
 # import Department, DepartmentInput from "./types/department.graphql"
 # import Feeding, FeedingInput from "./types/feeding.graphql"
-# import Preferences, PreferenceInput from "./types/preferences.graphql"
+# import Preferences, PreferenceInput, Preference from "./types/preferences.graphql"
 
 type Mutation {
   addLesson(lesson: LessonInput!): Lesson!
@@ -16,4 +16,5 @@ type Mutation {
   removeFeeding(feedingId: ID!): String!
 
   updatePreferences(preferences: PreferencesInput!): Preferences!
+  deletePreference(preference: Preference!): Preferences!
 }
