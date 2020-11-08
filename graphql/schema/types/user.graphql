@@ -11,8 +11,6 @@ type User {
   birthDate: String
   # Path to user picture
   picture: String!
-  # User department
-  department: ID
   # User preferences
   preferences: Preferences
 }
@@ -26,6 +24,4 @@ input registerUserInput {
   birthDate: String
   # Path to user picture
   picture: String!
-  # User department
-  department: ID
 }

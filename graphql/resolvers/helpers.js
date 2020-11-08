@@ -27,7 +27,7 @@ exports.transformImage = async (loaders, image) => {
 
   return {
     ...this.transformData(image),
-    uploader: () => this.transformUser(uploader)
+    uploader: () => this.transformUser(loaders, uploader)
   }
 }
 
@@ -42,7 +42,7 @@ exports.transformLesson = async (loaders, lesson) => {
 
   return {
     ...this.transformData(lesson),
-    creator: () => this.transformUser(creator),
+    creator: () => this.transformUser(loaders, creator),
     department: () => this.transformDepartment(department)
   }
 }
@@ -63,7 +63,7 @@ exports.transformLessonNote = async (loaders, lessonNote) => {
     ...this.transformData(lessonNote),
     images: () => images.map(this.transformImage.bind(this, loaders)),
     lesson: () => this.transformLesson(loaders, lesson),
-    creator: () => this.transformUser(creator),
+    creator: () => this.transformUser(loaders, creator),
     date: () => this.dateToString(date)
   }
 }

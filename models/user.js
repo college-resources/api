@@ -30,11 +30,6 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    // User department
-    department: {
-      type: Schema.Types.ObjectId,
-      ref: 'Department'
-    },
     // User preferences
     preferences: {
       type: Schema.Types.ObjectId,
