@@ -20,3 +20,11 @@ input PreferencesInput {
   courses: [ID!]
   theme: String
 }
+
+enum Preference {
+  FEEDING
+  DEPARTMENT
+  SEMESTER
+  COURSES
+  THEME
+}
