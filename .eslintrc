@@ -5,15 +5,30 @@
         "node": true,
         "jest/globals": true
     },
-    "extends": "eslint:recommended",
-    "plugins": ["jest"],
+    "plugins": ["import", "jest"],
+    "extends": [
+        "eslint:recommended",
+        "prettier"
+    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": 2020
+        "ecmaVersion": 2020,
+        "sourceType": "module"
     },
+    "overrides": [
+        {
+            "files": ["*.js"]
+        }
+    ],
     "rules": {
+        // Default
+        "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+        "no-console": "warn",
+        "no-eval": "error",
+        "no-warning-comments": "warn",
+        "import/first": "error"
     }
 }
