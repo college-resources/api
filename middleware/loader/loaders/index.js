@@ -5,7 +5,9 @@ const {
   getImages,
   getLessons,
   getLessonNotes,
-  getUsers
+  getUsers,
+  getFeedings,
+  getPreferences
 } = require('../helpers')
 
 module.exports = () => {
@@ -46,6 +48,20 @@ module.exports = () => {
       }
 
       return loaders.user
+    },
+    get feeding () {
+      if (!loaders.feeding) {
+        loaders.feeding = new DataLoader(getFeedings)
+      }
+
+      return loaders.feeding
+    },
+    get preferences () {
+      if (!loaders.preferences) {
+        loaders.preferences = new DataLoader(getPreferences)
+      }
+
+      return loaders.preferences
     }
   }
 }

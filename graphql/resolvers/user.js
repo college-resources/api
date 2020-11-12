@@ -15,7 +15,7 @@ module.exports.user = async (_, args, req) => {
       user = req.user
     }
 
-    return transformUser(user)
+    return transformUser(req.loaders, user)
   } catch (err) {
     logger(err)
   }
@@ -31,12 +31,11 @@ module.exports.registerUser = async (_, args, req) => {
       familyName: args.user.familyName,
       birthDate: args.user.birthDate && new Date(args.user.birthDate),
       picture: args.user.picture,
-      department: args.user.department
     })
 
     const result = await user.save()
     req.loaders.user.prime(result.id, result)
-    return transformUser(result)
+    return transformUser(req.loaders, result)
   } catch (err) {
     logger(err)
   }

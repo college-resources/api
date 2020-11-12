@@ -1,0 +1,30 @@
+# import User from "./user.graphql"
+# import Department from "./department.graphql"
+# import Feeding from "./feeding.graphql"
+# import Lesson from "./lesson.graphql"
+
+type Preferences {
+  _id: ID!
+  user: User!
+  feeding: Feeding
+  department: Department
+  semester: Int
+  courses: [Lesson!]
+  theme: String
+}
+
+input PreferencesInput {
+  feeding: ID
+  department: ID
+  semester: Int
+  courses: [ID!]
+  theme: String
+}
+
+enum Preference {
+  FEEDING
+  DEPARTMENT
+  SEMESTER
+  COURSES
+  THEME
+}

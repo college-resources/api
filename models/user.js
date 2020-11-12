@@ -30,10 +30,11 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
-    // User department
-    department: {
+    // User preferences
+    preferences: {
       type: Schema.Types.ObjectId,
-      ref: 'Department'
+      ref: 'Preferences',
+      required: false
     }
   },
   { timestamps: true }
