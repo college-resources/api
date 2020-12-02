@@ -1,15 +1,14 @@
 const logger = require('../../modules/logger')
 const Feeding = require('../../models/feeding')
 
-const { transformData, dateToString } = require('./helpers')
+const { transformData, transformFeeding } = require('./helpers')
 
 module.exports.feeding = async (_, args, req) => {
   try {
-    const feeding = await Feeding.find().sort({ createdAt: 'desc' })
-    return feeding.map(f => ({
-      ...transformData(f),
-      startsFrom: dateToString(f.startsFrom)
-    }))
+    const feedings = await Feeding.find().sort({ createdAt: 'desc' })
+    return feedings.map(f => (
+      transformFeeding(f)
+    ))
   } catch (err) {
     logger(err)
   }
