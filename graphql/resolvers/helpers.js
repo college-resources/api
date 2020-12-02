@@ -89,7 +89,8 @@ exports.transformUser = async (loaders, user) => {
 
 exports.transformFeeding = async feeding => {
   return {
-    ...this.transformData(feeding)
+    ...this.transformData(feeding),
+    startsFrom: this.dateToString(feeding.startsFrom)
   }
 }
 
