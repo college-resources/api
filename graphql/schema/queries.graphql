@@ -11,7 +11,7 @@ type Query {
 
 	user(userId: ID): User!
 
-	departments: [Department!]!
+	departments(instituteId: ID!): [Department!]!
 
 	feeding: [Feeding]!
 

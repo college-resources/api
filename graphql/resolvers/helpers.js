@@ -14,9 +14,16 @@ exports.transformData = data => {
   }
 }
 
-exports.transformDepartment = async department => {
+exports.transformDepartment = async (loaders, department) => {
+  const instituteId = department._doc.institute.toString()
+
+  const [institute] = await Promise.all([
+    loaders.institute.load(instituteId) // institute
+  ])
+
   return {
-    ...this.transformData(department)
+    ...this.transformData(department),
+    institute: () => this.transformInstitute(loaders, institute)
   }
 }
 

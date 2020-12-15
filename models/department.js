@@ -9,9 +9,9 @@ const departmentSchema = new Schema(
       required: true
     },
     institute: {
-      type: String
-      // TODO: Implement institute collection
-      // required: true
+      type: Schema.Types.ObjectId,
+      ref: 'Institute',
+      required: true
     }
   }
 )

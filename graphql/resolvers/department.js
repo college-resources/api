@@ -5,8 +5,10 @@ const { transformDepartment } = require('./helpers')
 
 module.exports.departments = async (_, args, req) => {
   try {
-    const departments = await Department.find()
-    return departments.map(transformDepartment)
+    let departments
+    departments = await Department.find({institute: args.instituteId})
+
+    return departments.map(transformDepartment.bind(this, req.loaders))
   } catch (err) {
     logger(err)
   }
@@ -23,7 +25,7 @@ module.exports.addDepartment = async (_, args, req) => {
 
     const result = await department.save()
     req.loaders.department.prime(result.id, result)
-    return transformDepartment(result)
+    return transformDepartment(req.loaders, result)
   } catch (err) {
     logger(err)
   }
