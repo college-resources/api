@@ -7,6 +7,6 @@ type Institute {
 
 input InstituteInput {
     name: String!
-    acronym: String
+    acronym: String!
     feedings: [ID!]
 }

@@ -123,3 +123,19 @@ exports.transformPreferences = async (loaders, preferences) => {
     theme: () => theme ? theme : defaultPreferences.theme
   }
 }
+exports.transformInstitute = async (loaders, institute) => {
+  if (institute._doc) {
+    institute = institute._doc
+  }
+
+  const feedingIds = institute.feedings.map(feeding => feeding.toString())
+
+  const [feedings] = await  Promise.all([
+    loaders.feeding.loadMany(feedingIds)
+  ])
+
+  return {
+    ...this.transformData(institute),
+    feedings: () => feedings.map(this.transformFeeding.bind(this))
+  }
+}

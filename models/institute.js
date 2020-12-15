@@ -12,7 +12,7 @@ const instituteSchema = new Schema(
       type: String,
       required: true
     },
-    courses: [{
+    feedings: [{
       type: Schema.Types.ObjectId,
       ref: 'Feeding',
       required: true
