@@ -1,3 +1,5 @@
+const defaultPreferences = require('../../config/default-preferences.json')
+
 exports.dateToString = date => date ? new Date(date).toISOString() : ''
 
 exports.transformData = data => {
@@ -103,6 +105,7 @@ exports.transformPreferences = async (loaders, preferences) => {
   const feedingId = preferences.feeding?.toString()
   const departmentId = preferences.department?.toString()
   const coursesIds = preferences.courses?.map(course => course.toString())
+  const theme = preferences.theme?.toString()
 
   const [user, feeding, department, courses] = await Promise.all([
     loaders.user.load(userId), // user
@@ -116,6 +119,7 @@ exports.transformPreferences = async (loaders, preferences) => {
     user: () => this.transformUser(loaders, user),
     feeding: () => feeding && this.transformFeeding(feeding),
     department: () => department && this.transformDepartment(department),
-    courses: () => coursesIds && courses.map(this.transformLesson.bind(this, loaders))
+    courses: () => coursesIds ? courses.map(this.transformLesson.bind(this, loaders)) : defaultPreferences.courses,
+    theme: () => theme ? theme : defaultPreferences.theme
   }
 }
