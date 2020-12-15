@@ -1,0 +1,12 @@
+type Institute {
+    _id: ID!
+    name: String!
+    acronym: String!
+    feedings: [Feeding!]
+}
+
+input InstituteInput {
+    name: String!
+    acronym: String!
+    feedings: [ID!]
+}

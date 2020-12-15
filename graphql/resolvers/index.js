@@ -3,6 +3,7 @@ const { user, registerUser } = require('./user')
 const { departments, addDepartment } = require('./department')
 const { feeding, addFeeding, removeFeeding } = require('./feeding')
 const { preferences, updatePreferences, deletePreference } = require('./preferences')
+const { institutes, addInstitute } = require('./institute')
 
 module.exports.Query = {
   lessons,
@@ -14,7 +15,9 @@ module.exports.Query = {
 
   feeding,
 
-  preferences
+  preferences,
+
+  institutes
 }
 
 module.exports.Mutation = {
@@ -29,5 +32,7 @@ module.exports.Mutation = {
   removeFeeding,
 
   updatePreferences,
-  deletePreference
+  deletePreference,
+
+  addInstitute
 }

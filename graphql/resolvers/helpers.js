@@ -14,9 +14,16 @@ exports.transformData = data => {
   }
 }
 
-exports.transformDepartment = async department => {
+exports.transformDepartment = async (loaders, department) => {
+  const instituteId = department._doc.institute.toString()
+
+  const [institute] = await Promise.all([
+    loaders.institute.load(instituteId) // institute
+  ])
+
   return {
-    ...this.transformData(department)
+    ...this.transformData(department),
+    institute: () => this.transformInstitute(loaders, institute)
   }
 }
 
@@ -121,5 +128,21 @@ exports.transformPreferences = async (loaders, preferences) => {
     department: () => department && this.transformDepartment(department),
     courses: () => coursesIds ? courses.map(this.transformLesson.bind(this, loaders)) : defaultPreferences.courses,
     theme: () => theme ? theme : defaultPreferences.theme
+  }
+}
+exports.transformInstitute = async (loaders, institute) => {
+  if (institute._doc) {
+    institute = institute._doc
+  }
+
+  const feedingIds = institute.feedings.map(feeding => feeding.toString())
+
+  const [feedings] = await  Promise.all([
+    loaders.feeding.loadMany(feedingIds)
+  ])
+
+  return {
+    ...this.transformData(institute),
+    feedings: () => feedings.map(this.transformFeeding.bind(this))
   }
 }
