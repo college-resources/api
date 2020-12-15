@@ -3,6 +3,7 @@
 # import Department, DepartmentInput from "./types/department.graphql"
 # import Feeding, FeedingInput from "./types/feeding.graphql"
 # import Preferences, PreferenceInput, Preference from "./types/preferences.graphql"
+# import Institute, InstituteInput from "./types/institute.graphql"
 
 type Mutation {
   addLesson(lesson: LessonInput!): Lesson!
@@ -17,4 +18,6 @@ type Mutation {
 
   updatePreferences(preferences: PreferencesInput!): Preferences!
   deletePreference(preference: Preference!): Preferences!
+
+  addInstitute(institute: InstituteInput!): Institute!
 }
