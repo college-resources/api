@@ -22,7 +22,7 @@ module.exports.addInstitute = async (_, args, req) => {
       feedings: args.institute.feedings
     })
 
-    let result = await institute.save()
+    const result = await institute.save()
     req.loaders.institute.prime(result.id, result)
     return transformInstitute(req.loaders, result)
   } catch (err) {

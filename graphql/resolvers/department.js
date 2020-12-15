@@ -5,8 +5,7 @@ const { transformDepartment } = require('./helpers')
 
 module.exports.departments = async (_, args, req) => {
   try {
-    let departments
-    departments = await Department.find({institute: args.instituteId})
+    const departments = await Department.find({institute: args.instituteId})
 
     return departments.map(transformDepartment.bind(this, req.loaders))
   } catch (err) {
