@@ -6,7 +6,7 @@
 # import Institute from "./types/institute.graphql"
 
 type Query {
-	lessons(departmentId: ID): [Lesson!]!
+	lessons(departmentId: ID!): [Lesson!]!
 	lessonNotes(lesson: ID!): [LessonNote!]!
 
 	user(userId: ID): User!
