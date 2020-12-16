@@ -11,13 +11,8 @@ module.exports.lessons = async (_, args, req) => {
   try {
     // TODO: Implement loader
 
-    let lessons
+    const lessons = await Lesson.find({ department: args.departmentId })
 
-    if (args.departmentId) {
-      lessons = await Lesson.find({ department: args.departmentId })
-    } else {
-      lessons = await Lesson.find()
-    }
     return lessons.map(transformLesson.bind(this, req.loaders))
   } catch (err) {
     logger(err)

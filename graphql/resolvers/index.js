@@ -1,7 +1,7 @@
 const { lessons, lessonNotes, addLesson, addLessonNotes } = require('./lesson')
 const { user, registerUser } = require('./user')
 const { departments, addDepartment } = require('./department')
-const { feeding, addFeeding, removeFeeding } = require('./feeding')
+const { feedings, addFeeding, removeFeeding } = require('./feeding')
 const { preferences, updatePreferences, deletePreference } = require('./preferences')
 const { institutes, addInstitute } = require('./institute')
 
@@ -13,7 +13,7 @@ module.exports.Query = {
 
   departments,
 
-  feeding,
+  feedings,
 
   preferences,
 

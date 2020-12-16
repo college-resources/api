@@ -1,14 +1,15 @@
 const logger = require('../../modules/logger')
 const Feeding = require('../../models/feeding')
+const Institute = require('../../models/institute')
 
 const { transformData, transformFeeding } = require('./helpers')
 
-module.exports.feeding = async (_, args, req) => {
+module.exports.feedings = async (_, args, req) => {
   try {
-    const feedings = await Feeding.find().sort({ createdAt: 'desc' })
-    return feedings.map(f => (
-      transformFeeding(f)
-    ))
+    const institute = await Institute.findOne({_id: args.instituteId})
+    const feedingIds = institute._doc.feedings
+    const feedings = await Feeding.find({_id: {$in: feedingIds}}).sort({ createdAt: 'desc' })
+    return feedings.map(transformFeeding.bind(this))
   } catch (err) {
     logger(err)
   }
