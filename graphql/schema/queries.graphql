@@ -13,7 +13,7 @@ type Query {
 
 	departments(instituteId: ID!): [Department!]!
 
-	feeding: [Feeding]!
+	feedings(instituteId: ID!): [Feeding]!
 
 	preferences: Preferences
 
