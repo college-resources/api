@@ -52,7 +52,7 @@ exports.transformLesson = async (loaders, lesson) => {
   return {
     ...this.transformData(lesson),
     creator: () => this.transformUser(loaders, creator),
-    department: () => this.transformDepartment(department)
+    department: () => this.transformDepartment(loaders, department)
   }
 }
 
